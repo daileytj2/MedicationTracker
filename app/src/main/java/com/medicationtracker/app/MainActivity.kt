@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val acceptButton = findViewById<Button>(R.id.btnAccept)
         val emailAddress = findViewById<EditText>(R.id.etEmailAddress)
         val phoneNumber = findViewById<EditText>(R.id.etPhoneNumber)
-        val smsManager:SmsManager
+        val smsManager:SmsManager = SmsManager.getDefault()
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         val formatted = current.format(formatter)
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             var phone = phoneNumber.text.toString()
 
 
-            if (emailAddress == "" && phoneNumber == ""){
+            if (address == "" && phone == ""){
                 Toast.makeText(
                     this@MainActivity,
                     "Please, enter email address or phone number!",
@@ -79,13 +79,13 @@ class MainActivity : AppCompatActivity() {
         //Accept Button
         acceptButton.setOnClickListener{
 
-            var message = "The patient taken their medication on$formatted."
+            var message = "The patient has taken their medication on$formatted."
             var address = emailAddress.text.toString()
             var subject = "MedTracker"
             var phone = phoneNumber.text.toString()
 
 
-            if (emailAddress == "" && phoneNumber == ""){
+            if (address == "" && phone == ""){
                 Toast.makeText(
                     this@MainActivity,
                     "Please, enter email address or phone number!",
