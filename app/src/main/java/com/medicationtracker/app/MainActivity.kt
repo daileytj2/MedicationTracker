@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         //Accept Button
         acceptButton.setOnClickListener{
 
-            var message = "The patient has taken their medication on$formatted."
+            var message = "The patient has taken their medication on $formatted."
             var address = emailAddress.text.toString()
             var subject = "MedTracker"
             var phone = phoneNumber.text.toString()
