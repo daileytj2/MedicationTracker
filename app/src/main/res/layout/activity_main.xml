@@ -71,4 +71,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="402dp"
+        android:layout_height="379dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="276dp"
+        android:headerBackground="@color/purple_700"
+        android:numbersSelectorColor="#3F51B5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timePicker"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="664dp"
+        android:text="Set Alarm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
