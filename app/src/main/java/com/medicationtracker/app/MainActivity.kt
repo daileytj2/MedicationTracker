@@ -36,8 +36,8 @@ import java.util.Properties;
 class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
 
-    lateinit var btnAlarm: Button
-    lateinit var timePicker: TimePicker
+    private lateinit var btnAlarm: Button
+    private lateinit var timePicker: TimePicker
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
