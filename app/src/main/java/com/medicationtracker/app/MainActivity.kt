@@ -18,6 +18,8 @@ import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import kotlinx.android.synthetic.main.activity_addmedication.*
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -129,6 +131,11 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
 
+        }
+
+        btnAdd.setOnClickListener(){
+            val addMedScreen = Intent(this@MainActivity, AddMedication::class.java)
+            startActivity(addMedScreen)
         }
 
         alarmButton.setOnClickListener{

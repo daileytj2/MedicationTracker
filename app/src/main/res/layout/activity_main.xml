@@ -21,7 +21,7 @@
         android:id="@+id/btnReject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="224dp"
+        android:layout_marginStart="160dp"
         android:layout_marginTop="220dp"
         android:text="Reject"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
         android:id="@+id/btnAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="220dp"
         android:text="Accept"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,6 +94,16 @@
         android:text="Set Alarm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="26dp"
+        android:text="Add Med"
+        app:layout_constraintStart_toEndOf="@+id/btnReject"
+        app:layout_constraintTop_toBottomOf="@+id/etEmailAddress" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
