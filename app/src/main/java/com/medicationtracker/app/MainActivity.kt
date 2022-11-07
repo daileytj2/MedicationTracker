@@ -34,10 +34,9 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 class MainActivity : AppCompatActivity() {
-    @RequiresApi(Build.VERSION_CODES.O)
 
-    private lateinit var btnAlarm: Button
-    private lateinit var timePicker: TimePicker
+//    private lateinit var btnSetAlarm: Button
+//    private lateinit var timePicker: TimePicker
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,8 +55,8 @@ class MainActivity : AppCompatActivity() {
         val formatted = current.format(formatter)
 
         //Values for alarm
-        val alarmTimePicker = findViewById<TimePicker>(R.id.timePicker)
-        val alarmButton = findViewById<Button>(R.id.btnAlarm)
+        val timePicker = findViewById<TimePicker>(R.id.timePicker)
+        val btnSetAlarm = findViewById<Button>(R.id.btnAlarm)
 
         //Reject Button
         rejectButton.setOnClickListener{
@@ -138,7 +137,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(addMedScreen)
         }
 
-        alarmButton.setOnClickListener{
+        btnSetAlarm.setOnClickListener{
             val calendar: Calendar = Calendar.getInstance()
             if (Build.VERSION.SDK_INT >= 23) {
                 calendar.set(
