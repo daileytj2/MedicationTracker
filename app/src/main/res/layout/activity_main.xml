@@ -89,8 +89,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/timePicker"
         android:layout_centerInParent="true"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="664dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="8dp"
         android:text="Set Alarm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
