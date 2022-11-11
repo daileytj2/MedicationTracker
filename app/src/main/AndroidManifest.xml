@@ -26,9 +26,9 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
+        </activity>          
         <activity
-            android:name=".Settings"
+            android:name=".Notification"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
