@@ -13,6 +13,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="120dp"
         android:text="Email"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,7 +21,7 @@
         android:id="@+id/btnReject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="224dp"
+        android:layout_marginStart="160dp"
         android:layout_marginTop="220dp"
         android:text="Reject"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +31,7 @@
         android:id="@+id/btnAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="220dp"
         android:text="Accept"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,10 +52,11 @@
         android:id="@+id/etPhoneNumber"
         android:layout_width="339dp"
         android:layout_height="45dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="68dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|phone"
+        android:phoneNumber="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,7 +66,43 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
-        android:text="Phone Number"
+        android:text="Phone Number:"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+
+        android:id="@+id/btnAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="392dp"
+        android:onClick="BtnSetAlarm"
+        android:text="Set Alarm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="26dp"
+        android:text="Add Med"
+        app:layout_constraintStart_toEndOf="@+id/btnReject"
+        app:layout_constraintTop_toBottomOf="@+id/etEmailAddress" />
+
+    <TextView
+        android:id="@+id/txtShowTime"
+        android:layout_width="145dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="296dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="27sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,5 +115,6 @@
         android:text="Button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAccept" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

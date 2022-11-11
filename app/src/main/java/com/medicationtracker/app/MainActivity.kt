@@ -1,15 +1,27 @@
 package com.medicationtracker.app
 
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.SmsManager
+import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import kotlinx.android.synthetic.main.activity_addmedication.*
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -23,18 +35,23 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 class MainActivity : AppCompatActivity() {
+
+//    private lateinit var btnSetAlarm: Button
+//    private lateinit var timePicker: TimePicker
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        
         val new = findViewById<Button>(R.id.notificationpage)
         new.setOnClickListener {
             val intent = Intent(this, Notification::class.java)
             // start your next activity
             startActivity(intent)
         }
-
+        //Values for email and phone number
         val rejectButton = findViewById<Button>(R.id.btnReject)
         val acceptButton = findViewById<Button>(R.id.btnAccept)
         val emailAddress = findViewById<EditText>(R.id.etEmailAddress)
@@ -44,6 +61,9 @@ class MainActivity : AppCompatActivity() {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         val formatted = current.format(formatter)
 
+        //Values for alarm
+        val btnSetAlarm = findViewById<Button>(R.id.btnAlarm)
+        val txtShowTime = findViewById<TextView>(R.id.txtShowTime)
 
         //Reject Button
         rejectButton.setOnClickListener{
@@ -119,6 +139,26 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
+        btnAdd.setOnClickListener(){
+            val addMedScreen = Intent(this@MainActivity, AddMedication::class.java)
+            startActivity(addMedScreen)
+        }
     }
+
+    fun BtnSetAlarm(view:View){
+        val popAlarm= PopAlarm()
+        val fm=supportFragmentManager
+        popAlarm.show(fm,"Select time")
+    }
+
+    fun SetTime(Hours:Int,Minute:Int){
+
+        txtShowTime.text= "$Hours:$Minute"
+
+        val saveAlarmData=SaveAlarmData(applicationContext)
+        saveAlarmData.SaveData(Hours, Minute)
+        saveAlarmData.setAlarm()
+    }
+
+
 }
