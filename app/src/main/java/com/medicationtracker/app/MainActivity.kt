@@ -44,7 +44,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        
+        val new = findViewById<Button>(R.id.notificationpage)
+        new.setOnClickListener {
+            val intent = Intent(this, Notification::class.java)
+            // start your next activity
+            startActivity(intent)
+        }
         //Values for email and phone number
         val rejectButton = findViewById<Button>(R.id.btnReject)
         val acceptButton = findViewById<Button>(R.id.btnAccept)
