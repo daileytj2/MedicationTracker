@@ -28,7 +28,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        val new = findViewById<Button>(R.id.notificationpage)
+        new.setOnClickListener {
+            val intent = Intent(this, Notification::class.java)
+            // start your next activity
+            startActivity(intent)
+        }
 
         val rejectButton = findViewById<Button>(R.id.btnReject)
         val acceptButton = findViewById<Button>(R.id.btnAccept)
@@ -38,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         val formatted = current.format(formatter)
+
 
         //Reject Button
         rejectButton.setOnClickListener{
