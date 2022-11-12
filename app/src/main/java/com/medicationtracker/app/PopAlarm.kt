@@ -17,7 +17,7 @@ class PopAlarm : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        var myView= inflater.inflate(R.layout.pop_alarm, container, false)
+        var myView= inflater!!.inflate(R.layout.pop_alarm, container, false)
 
         var btnAlarmDone=myView.findViewById(R.id.btnAlarmDone) as Button
         var timePicker=myView.findViewById(R.id.timePicker) as TimePicker
@@ -26,9 +26,9 @@ class PopAlarm : DialogFragment() {
 
             val ma = activity as MainActivity
             if (Build.VERSION.SDK_INT >= 23) {
-                ma.SetTime(timePicker.hour, timePicker.minute)
+                ma.setTime(timePicker.hour, timePicker.minute)
             } else {
-                ma.SetTime(timePicker.currentHour, timePicker.currentMinute)
+                ma.setTime(timePicker.currentHour, timePicker.currentMinute)
             }
 
             this.dismiss()
