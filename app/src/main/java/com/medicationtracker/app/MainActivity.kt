@@ -17,10 +17,10 @@ import java.util.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+
 class MainActivity : AppCompatActivity() {
 
-//    private lateinit var btnSetAlarm: Button
-//    private lateinit var timePicker: TimePicker
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity() {
         val formatted = current.format(formatter)
 
         //Values for alarm
-        val btnSetAlarm = findViewById<Button>(R.id.btnAlarm)
-        val txtShowTime = findViewById<TextView>(R.id.txtShowTime)
+//        val btnSetAlarm = findViewById<Button>(R.id.btnAlarm)
+//        val txtShowTime = findViewById<TextView>(R.id.txtShowTime)
 
         //Reject Button
         rejectButton.setOnClickListener{
@@ -133,13 +133,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun BtnSetAlarm(view:View){
+    fun btnSetAlarm(view:View){
         val popAlarm= PopAlarm()
         val fm=supportFragmentManager
         popAlarm.show(fm,"Select time")
     }
 
-    fun SetTime(Hours:Int,Minute:Int){
+    fun setTime(Hours:Int,Minute:Int){
 
         txtShowTime.text= "$Hours:$Minute"
 
