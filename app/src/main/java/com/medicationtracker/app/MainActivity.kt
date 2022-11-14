@@ -8,6 +8,7 @@ import android.telephony.SmsManager
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_addmedication.*
@@ -15,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -122,9 +122,14 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        btnAdd.setOnClickListener(){
+        btnAddMed.setOnClickListener(){
             val addMedScreen = Intent(this@MainActivity, AddMedication::class.java)
             startActivity(addMedScreen)
+        }
+
+        btnAddContact.setOnClickListener {
+            val addContactScreen = Intent(this@MainActivity, AddContact::class.java)
+            startActivity(addContactScreen)
         }
     }
 
