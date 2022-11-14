@@ -26,11 +26,14 @@ class AddMedication : AppCompatActivity() {
         btnAddMedication.setOnClickListener(){
            val medicationName = etMedicationName.text.toString()
            val doses = Integer.parseInt(etDoseAmount.text.toString())
-
+           val rxNumber = etRXNumber.text.toString()
+            val expiration = etExpDate.text.toString()
 
             val medication = Medication().apply {
                 name = medicationName
                 doseAmount = doses
+                RXNumber = rxNumber
+                expDate = expiration
             }
            saveMedication(medication)
             val returnToMain = Intent(this@AddMedication, MainActivity::class.java)
