@@ -1,22 +1,14 @@
 package com.medicationtracker.app
 
-import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.SmsManager
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_addmedication.*
@@ -24,15 +16,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
 
 class MainActivity : AppCompatActivity() {
 
@@ -139,9 +122,14 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        btnAdd.setOnClickListener(){
+        btnAddMed.setOnClickListener(){
             val addMedScreen = Intent(this@MainActivity, AddMedication::class.java)
             startActivity(addMedScreen)
+        }
+
+        btnAddContact.setOnClickListener {
+            val addContactScreen = Intent(this@MainActivity, AddContact::class.java)
+            startActivity(addContactScreen)
         }
     }
 
