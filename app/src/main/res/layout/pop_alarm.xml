@@ -22,9 +22,9 @@
         android:id="@+id/btnAlarmDone"
         android:layout_width="401dp"
         android:layout_height="84dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="468dp"
         android:text="Done"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="472dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

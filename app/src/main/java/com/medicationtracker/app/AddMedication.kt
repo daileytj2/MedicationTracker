@@ -12,11 +12,10 @@ import kotlinx.android.synthetic.main.activity_addmedication.*
 
 class AddMedication : AppCompatActivity() {
 
-    private lateinit var firestore: FirebaseFirestore
+    private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     var medications : MutableLiveData<List<Medication>> = MutableLiveData<List<Medication>>()
 
     init{
-        firestore = FirebaseFirestore.getInstance()
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
     }
 
@@ -27,15 +26,24 @@ class AddMedication : AppCompatActivity() {
         btnAddMedication.setOnClickListener(){
            val medicationName = etMedicationName.text.toString()
            val doses = Integer.parseInt(etDoseAmount.text.toString())
-
+           val rxNumber = etRXNumber.text.toString()
+            val expiration = etExpDate.text.toString()
 
             val medication = Medication().apply {
                 name = medicationName
                 doseAmount = doses
+                RXNumber = rxNumber
+                expDate = expiration
             }
            saveMedication(medication)
             val returnToMain = Intent(this@AddMedication, MainActivity::class.java)
             startActivity(returnToMain)
+        }
+
+        btnCancelAdd.setOnClickListener {
+            val returnToMain = Intent(this@AddMedication, MainActivity::class.java)
+            startActivity(returnToMain)
+
         }
     }
 
