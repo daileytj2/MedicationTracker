@@ -131,6 +131,11 @@ class MainActivity : AppCompatActivity() {
             val addContactScreen = Intent(this@MainActivity, AddContact::class.java)
             startActivity(addContactScreen)
         }
+
+        btnViewMedications.setOnClickListener {
+            val addViewMedicationScreen = Intent(this@MainActivity, DisplayMedication::class.java)
+            startActivity(addViewMedicationScreen)
+        }
     }
 
     fun btnSetAlarm(view:View){
