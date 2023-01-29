@@ -1,29 +1,55 @@
 package com.medicationtracker.app
 
-import android.app.Notification
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
+import com.medicationtracker.app.SaveAlarmData
+import com.medicationtracker.app.TJNotifications
+import io.karn.notify.Notify
+import android.text.format.DateFormat
+import com.medicationtracker.app.service.AlarmService
+import com.medicationtracker.app.util.Constants
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class AlarmReceiver: BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context, intent: Intent) {
+        val timeInMillis = intent.getLongExtra(Constants.EXTRA_EXACT_ALARM_TIME, 0L)
 
-        if (intent!!.action.equals("com.tester.alarmmanager")){
-            var b=intent.extras
-            val notifyMe=TJNotifications()
-            notifyMe.Notify(context!!, b!!.getString("message")!!,10)
+        when (intent.action) {
+            Constants.ACTION_SET_EXACT_ALARM -> {
+                buildNotification(context, "Set Exact Time", convertDate(timeInMillis))
+            }
+
+            Constants.ACTION_SET_REPETITIVE_WEEKLY_ALARM -> {
+                val cal = Calendar.getInstance().apply {
+                    this.timeInMillis = timeInMillis + TimeUnit.DAYS.toMillis(7)
+                }
+                AlarmService(context).setWeeklyAlarm(cal.timeInMillis)
+                buildNotification(context, "Set Weekly Time", convertDate(timeInMillis))
+            }
+
+            Constants.ACTION_SET_REPETITIVE_DAILY_ALARM -> {
+                val cal = Calendar.getInstance().apply {
+                    this.timeInMillis = timeInMillis + TimeUnit.HOURS.toMillis(24)
+                }
+                AlarmService(context).setDailyAlarm(cal.timeInMillis)
+                buildNotification(context, "Set Daily Time", convertDate(timeInMillis))
+            }
         }
-        else if(intent!!.action.equals("android.intent.action.BOOT_COMPLETED")){
-
-            val saveData=SaveAlarmData(context!!)
-            saveData.setAlarm()
-        }
-
-
-
     }
+
+    private fun buildNotification(context: Context, title: String, message: String){
+        Notify
+            .with(context)
+            .content {
+                this.title = title
+                this.text = "It's time to take medicine"
+            }
+
+            .show()
+    }
+
+    private fun convertDate(timeInMillis: Long): String =
+        DateFormat.format("dd/MM/yyyy hh:mm:ss", timeInMillis).toString()
 }

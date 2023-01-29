@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+
+        android:id="@+id/btnDailyAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="384dp"
+        android:text="Set Daily Alarm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -73,14 +85,13 @@
 
     <Button
 
-        android:id="@+id/btnAlarm"
+        android:id="@+id/btnWeeklyAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="392dp"
-        android:onClick="btnSetAlarm"
-        android:text="Set Alarm"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="384dp"
+        android:text="Set Weekly Alarm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -134,7 +145,7 @@
         android:layout_marginTop="64dp"
         android:text="View Medications"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAlarm" />
+        app:layout_constraintTop_toBottomOf="@+id/btnWeeklyAlarm" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
