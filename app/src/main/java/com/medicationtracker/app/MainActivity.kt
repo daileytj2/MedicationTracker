@@ -1,5 +1,7 @@
 package com.medicationtracker.app
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.medicationtracker.app.service.AlarmService
 import kotlinx.android.synthetic.main.activity_addmedication.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -21,11 +24,12 @@ import java.time.format.DateTimeFormatter
 class MainActivity : AppCompatActivity() {
 
 
-
+    lateinit var  alarmService: AlarmService
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        alarmService =AlarmService(this)
 
         
         val new = findViewById<Button>(R.id.notificationpage)
@@ -47,6 +51,14 @@ class MainActivity : AppCompatActivity() {
         //Values for alarm
 //        val btnSetAlarm = findViewById<Button>(R.id.btnAlarm)
 //        val txtShowTime = findViewById<TextView>(R.id.txtShowTime)
+
+        btnWeeklyAlarm.setOnClickListener{
+            setAlarm{ alarmService.setWeeklyAlarm(it) }
+        }
+
+        btnDailyAlarm.setOnClickListener{
+            setAlarm{ alarmService.setDailyAlarm(it) }
+        }
 
         //Reject Button
         rejectButton.setOnClickListener{
@@ -138,11 +150,45 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun btnSetAlarm(view:View){
-        val popAlarm= PopAlarm()
-        val fm=supportFragmentManager
-        popAlarm.show(fm,"Select time")
+//    fun btnSetAlarm(view:View){
+//        val popAlarm= PopAlarm()
+//        val fm=supportFragmentManager
+//        popAlarm.show(fm,"Select time")
+//    }
+
+    private fun setAlarm(callback: (Long) -> Unit) {
+        Calendar.getInstance().apply {
+            this.set(Calendar.SECOND,0)
+            this.set(Calendar.MILLISECOND,0)
+            DatePickerDialog(
+                this@MainActivity,
+                0,
+                {_, year, month, day ->
+                    this.set(Calendar.YEAR, year)
+                    this.set(Calendar.MONTH, month)
+                    this.set(Calendar.DAY_OF_MONTH, day)
+
+                    TimePickerDialog(
+                        this@MainActivity,
+                        0,
+                        {_, hour, min ->
+                            this.set(Calendar.HOUR_OF_DAY, hour)
+                            this.set(Calendar.MINUTE, min)
+                            callback(this.timeInMillis)
+                        },
+                        this.get(Calendar.HOUR_OF_DAY),
+                        this.get(Calendar.MINUTE),
+                        false
+                    ).show()
+                },
+                this.get(Calendar.YEAR),
+                this.get(Calendar.MONTH),
+                this.get(Calendar.DAY_OF_MONTH)
+
+            ).show()
+        }
     }
+
 
     fun setTime(Hours:Int,Minute:Int){
 
