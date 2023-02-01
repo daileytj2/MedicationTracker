@@ -17,21 +17,21 @@
             android:layout_height="wrap_content"
             android:id="@+id/MedicationName"
             android:text="Medication Name:"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/DoseAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Doses Left:"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ExpDate"
             android:text="Expiration Date:"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
