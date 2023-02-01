@@ -4,25 +4,25 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.SmsManager
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.medicationtracker.app.service.AlarmService
 import kotlinx.android.synthetic.main.activity_addmedication.*
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
+import kotlinx.android.synthetic.main.login.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
+import java.util.concurrent.Executor
 
 
 class MainActivity : AppCompatActivity() {
-
 
     lateinit var  alarmService: AlarmService
     @RequiresApi(Build.VERSION_CODES.O)
@@ -31,7 +31,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         alarmService =AlarmService(this)
 
-        
+        val loginpage = findViewById<Button>(R.id.tologin)
+        loginpage.setOnClickListener {
+            val intent = Intent(this, Login::class.java)
+            // start your next activity
+            startActivity(intent)
+        }
         val new = findViewById<Button>(R.id.notificationpage)
         new.setOnClickListener {
             val intent = Intent(this, Notification::class.java)
@@ -47,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         val formatted = current.format(formatter)
+
 
         //Values for alarm
 //        val btnSetAlarm = findViewById<Button>(R.id.btnAlarm)
