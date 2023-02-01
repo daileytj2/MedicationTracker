@@ -1,14 +1,19 @@
 package com.medicationtracker.app
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
@@ -21,6 +26,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.medicationtracker.app.dto.Medication
+import com.medicationtracker.app.theme.UpdateMedicationDialog
 
 class DisplayMedication : AppCompatActivity() {
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -64,7 +70,7 @@ class DisplayMedication : AppCompatActivity() {
 
         Row(
             modifier = Modifier
-                .size(width = 400.dp, height = 500.dp)
+                .size(width = 500.dp, height = 600.dp)
                 .padding(top = 10.dp)
 
         ) {
@@ -75,7 +81,7 @@ class DisplayMedication : AppCompatActivity() {
             }
         }
     }
-    fun fetchMedications(medications: SnapshotStateList<Medication>){
+    private fun fetchMedications(medications: SnapshotStateList<Medication>){
 
             firestore.collection("medications").get()
                 .addOnSuccessListener {
@@ -117,10 +123,99 @@ class DisplayMedication : AppCompatActivity() {
                         Text(text = "Doses Left: ${medication.doseAmount}")
                         Text(text = "Expiration Date: ${medication.expDate}")
                     }
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                    ) {
+                        Button(
+                            onClick = { openDialog.value = true },
+                            modifier = Modifier
+                                .padding(2.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color(
+                                    12,
+                                    121,
+                                    230
+                                )
+                            )
+                        ) {
+                            Icon(
+                                Icons.Filled.Edit,
+                                contentDescription = "Edit",
+                                modifier = Modifier
+                                    .background(color = Color(12, 121, 230))
+                            )
+                        }
+                        UpdateMedicationDialog(openDialog, medication.id)
+                        Button(
+                            onClick = {
+                                deleteMedication(medication.id)
+                            },
+                            modifier = Modifier
+                                .padding(2.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color(
+                                    12,
+                                    121,
+                                    230
+                                )
+                            )
+                        ) {
+                            Icon(
+                                Icons.Filled.Delete,
+                                contentDescription = "Delete",
+                                modifier = Modifier
+                                    .background(color = Color(12, 121, 230))
+                            )
+                        }
+                    }
 
                 }
             }
         }
+    }
+
+    fun checkIfMedicationExists(documentID: String, medication: Medication){
+        Log.d("Document", "Is not null ${documentID}")
+        if(!documentID.equals(""))
+            firestore.collection("medications").document(documentID)
+                .get().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val document = task.result
+                        if (document.exists()) {
+                            updateMedication(documentID, medication)
+                            Log.d("TAG", "Document already exists. $documentID")
+                        }
+                    } else {
+                        Log.d("An Error Occurred", "Try again")
+                    }
+                }
+        else {
+            saveMedications(medication)
+            Log.d("TAG", "Document does NOT exist. $documentID")
+        }
+    }
+    private fun updateMedication(documentID: String, medication: Medication){
+        medication.id = documentID
+        firestore.collection("medications").document(documentID)
+            .set(medication)
+    }
+
+    fun deleteMedication(documentID: String) {
+        firestore.collection("medications").document(documentID).delete()
+    }
+
+    fun saveMedications(medication: Medication){
+        val document =  if (medication.id == null || medication.id.isEmpty()) {
+            firestore.collection("medications").document()
+        }
+        else {
+            firestore.collection("medications").document(medication.id!!)
+        }
+        medication.id = document.id
+        val handle = document.set(medication)
+        handle.addOnSuccessListener { Log.d("Firebase", "Document Saved") }
+        handle.addOnFailureListener { Log.e("Firebase", "Save Failed")}
     }
 }
 
