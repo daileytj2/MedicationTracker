@@ -24,12 +24,11 @@ import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var  alarmService: AlarmService
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        alarmService =AlarmService(this)
 
         val loginpage = findViewById<Button>(R.id.tologin)
         loginpage.setOnClickListener {
@@ -58,13 +57,7 @@ class MainActivity : AppCompatActivity() {
 //        val btnSetAlarm = findViewById<Button>(R.id.btnAlarm)
 //        val txtShowTime = findViewById<TextView>(R.id.txtShowTime)
 
-        btnWeeklyAlarm.setOnClickListener{
-            setAlarm{ alarmService.setWeeklyAlarm(it) }
-        }
 
-        btnDailyAlarm.setOnClickListener{
-            setAlarm{ alarmService.setDailyAlarm(it) }
-        }
 
         //Reject Button
         rejectButton.setOnClickListener{
@@ -154,6 +147,11 @@ class MainActivity : AppCompatActivity() {
             val addViewMedicationScreen = Intent(this@MainActivity, DisplayMedication::class.java)
             startActivity(addViewMedicationScreen)
         }
+
+        btnAlarmUI.setOnClickListener {
+            val addAlarmScreen = Intent(this@MainActivity, DisplayMedication::class.java)
+            startActivity(addAlarmScreen)
+        }
     }
 
 //    fun btnSetAlarm(view:View){
@@ -162,48 +160,10 @@ class MainActivity : AppCompatActivity() {
 //        popAlarm.show(fm,"Select time")
 //    }
 
-    private fun setAlarm(callback: (Long) -> Unit) {
-        Calendar.getInstance().apply {
-            this.set(Calendar.SECOND,0)
-            this.set(Calendar.MILLISECOND,0)
-            DatePickerDialog(
-                this@MainActivity,
-                0,
-                {_, year, month, day ->
-                    this.set(Calendar.YEAR, year)
-                    this.set(Calendar.MONTH, month)
-                    this.set(Calendar.DAY_OF_MONTH, day)
-
-                    TimePickerDialog(
-                        this@MainActivity,
-                        0,
-                        {_, hour, min ->
-                            this.set(Calendar.HOUR_OF_DAY, hour)
-                            this.set(Calendar.MINUTE, min)
-                            callback(this.timeInMillis)
-                        },
-                        this.get(Calendar.HOUR_OF_DAY),
-                        this.get(Calendar.MINUTE),
-                        false
-                    ).show()
-                },
-                this.get(Calendar.YEAR),
-                this.get(Calendar.MONTH),
-                this.get(Calendar.DAY_OF_MONTH)
-
-            ).show()
-        }
-    }
 
 
-    fun setTime(Hours:Int,Minute:Int){
 
-        txtShowTime.text= "$Hours:$Minute"
 
-        val saveAlarmData=SaveAlarmData(applicationContext)
-        saveAlarmData.SaveData(Hours, Minute)
-        saveAlarmData.setAlarm()
-    }
 
 
 }
