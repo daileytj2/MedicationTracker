@@ -24,7 +24,7 @@ class PopAlarm : DialogFragment() {
 
         btnAlarmDone.setOnClickListener {
 
-            val ma = activity as MainActivity
+            val ma = activity as AlarmPage
             if (Build.VERSION.SDK_INT >= 23) {
                 ma.setTime(timePicker.hour, timePicker.minute)
             } else {

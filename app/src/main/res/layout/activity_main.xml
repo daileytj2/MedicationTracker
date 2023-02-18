@@ -82,16 +82,6 @@
         app:layout_constraintTop_toBottomOf="@+id/etEmailAddress" />
 
     <Button
-        android:id="@+id/notificationpage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="340dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAccept" />
-
-    <Button
         android:id="@+id/btnAddContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -111,24 +101,6 @@
         tools:layout_editor_absoluteY="496dp"
         tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/tologin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:layout_marginEnd="32dp"
-        android:text="To Login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddMed" />
-
-    <Button
-        android:id="@+id/btnAlarmUI"
-        android:layout_width="121dp"
-        android:layout_height="64dp"
-        android:text="Alarm"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="387dp"
-        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
