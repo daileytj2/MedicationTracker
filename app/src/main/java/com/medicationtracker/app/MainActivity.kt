@@ -15,15 +15,17 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var  alarmService: AlarmService
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.mainidea)
         alarmService =AlarmService(this)
 
         tomedication.setOnClickListener(){
             val addMedScreen = Intent(this, AddMedication::class.java)
+
             startActivity(addMedScreen)
         }
         toalarms.setOnClickListener(){
@@ -37,6 +39,11 @@ class MainActivity : AppCompatActivity() {
         tohistory.setOnClickListener(){
             val addHistoryScreen = Intent(this, DisplayMedication::class.java)
             startActivity(addHistoryScreen)
+        }
+
+        btnAlarmUI.setOnClickListener {
+            val addAlarmScreen = Intent(this@MainActivity, DisplayMedication::class.java)
+            startActivity(addAlarmScreen)
         }
     }
 
