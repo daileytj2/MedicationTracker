@@ -67,7 +67,7 @@ class AlarmPage : AppCompatActivity(){
 
     fun setTime(Hours:Int,Minute:Int){
 
-        txtShowTime.text= "$Hours:$Minute"
+//        txtShowTime.text= "$Hours:$Minute"
 
         val saveAlarmData=SaveAlarmData(applicationContext)
         saveAlarmData.SaveData(Hours, Minute)
