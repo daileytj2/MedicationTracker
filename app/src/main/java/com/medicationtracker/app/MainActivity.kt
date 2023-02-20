@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.mainidea)
-        alarmService =AlarmService(this)
+//        alarmService =AlarmService(this)
 
         tomedication.setOnClickListener(){
             val addMedScreen = Intent(this, AddMedication::class.java)
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(addMedScreen)
         }
         toalarms.setOnClickListener(){
-            val addAlarmScreen = Intent(this, AlarmPage::class.java)
+            val addAlarmScreen = Intent(this, AddAlarm::class.java)
             startActivity(addAlarmScreen)
         }
         tocontacts.setOnClickListener(){
@@ -41,10 +41,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(addHistoryScreen)
         }
 
-        btnAlarmUI.setOnClickListener {
-            val addAlarmScreen = Intent(this@MainActivity, DisplayMedication::class.java)
-            startActivity(addAlarmScreen)
-        }
+//        btnAlarmUI.setOnClickListener {
+//            val addAlarmScreen = Intent(this@MainActivity, DisplayMedication::class.java)
+//            startActivity(addAlarmScreen)
+//        }
     }
 
 }
