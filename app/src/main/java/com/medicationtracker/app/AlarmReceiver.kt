@@ -32,6 +32,17 @@ class AlarmReceiver: BroadcastReceiver() {
                 }
                 AlarmService(context).setWeeklyAlarm(cal.timeInMillis)
                 buildNotification(context, "Set Weekly Time", convertDate(timeInMillis))
+
+                val smsManager: SmsManager = SmsManager.getDefault()
+                var txtMessage = "The patient has not taken their medication."
+
+                //destinationAddress needs to be a phone number that the user inputs
+                smsManager.sendTextMessage("5138882059", null, txtMessage, null, null)
+
+                //Below is code to send a text after ten minutes
+//              Timer().schedule(600000) {
+//                  smsManager.sendTextMessage("5138882059", null, message, null, null)
+//              }
             }
 
             Constants.ACTION_SET_REPETITIVE_DAILY_ALARM -> {
@@ -40,6 +51,16 @@ class AlarmReceiver: BroadcastReceiver() {
                 }
                 AlarmService(context).setDailyAlarm(cal.timeInMillis)
                 buildNotification(context, "Set Daily Time", convertDate(timeInMillis))
+                val smsManager: SmsManager = SmsManager.getDefault()
+                var txtMessage = "The patient has not taken their medication."
+
+                //destinationAddress needs to be a phone number that the user inputs
+                smsManager.sendTextMessage("5138882059", null, txtMessage, null, null)
+
+                //Below is code to send a text after ten minutes
+//              Timer().schedule(600000) {
+//                  smsManager.sendTextMessage("5138882059", null, message, null, null)
+//              }
             }
         }
     }
@@ -48,8 +69,7 @@ class AlarmReceiver: BroadcastReceiver() {
 
     private fun buildNotification(context: Context, title: String, message: String){
 
-        val smsManager: SmsManager = SmsManager.getDefault()
-        var txtMessage = "The patient has not taken their medication."
+
         Notify
             .with(context)
             .meta { // this: Payload.Meta
@@ -86,14 +106,7 @@ class AlarmReceiver: BroadcastReceiver() {
                 ))
             }
             .show()
-        //destinationAddress needs to be a phone number that the user inputs
-        smsManager.sendTextMessage("5138882059", null, txtMessage, null, null)
 
-
-        //Below is code to send a text after ten minutes
-//        Timer().schedule(600000) {
-//            smsManager.sendTextMessage("5138882059", null, message, null, null)
-//        }
     }
 
     private fun convertDate(timeInMillis: Long): String =
