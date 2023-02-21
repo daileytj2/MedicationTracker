@@ -70,6 +70,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".AddAlarm"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+            `</activity>
+        <activity
             android:name=".AddContact"
             android:exported="true">
             <intent-filter>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,27 +9,44 @@
         android:id="@+id/btnWeeklyAlarm"
         android:layout_width="165dp"
         android:layout_height="105dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="529dp"
         android:text="Weekly"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="97dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnDailyAlarm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnHomeAlarm"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btnDailyAlarm"
         android:layout_width="165dp"
         android:layout_height="105dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="529dp"
         android:text="Daily"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="215dp"
-        tools:layout_editor_absoluteY="97dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnWeeklyAlarm"
+        app:layout_constraintTop_toBottomOf="@+id/btnHomeAlarm"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btnHomeAlarm"
         android:layout_width="349dp"
         android:layout_height="61dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="17dp"
         android:text="Home"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="19dp" />
+        app:layout_constraintBottom_toTopOf="@+id/btnWeeklyAlarm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
