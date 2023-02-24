@@ -10,6 +10,9 @@ import kotlinx.android.synthetic.main.activity_addmedication.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.login.*
 import kotlinx.android.synthetic.main.mainidea.*
+import org.simplejavamail.email.EmailBuilder
+import org.simplejavamail.mailer.MailerBuilder
+
 import java.util.*
 
 
@@ -41,10 +44,25 @@ class MainActivity : AppCompatActivity() {
             startActivity(addHistoryScreen)
         }
 
+        btnTest.setOnClickListener {
+            sendEmail();
+        }
+
 //        btnAlarmUI.setOnClickListener {
 //            val addAlarmScreen = Intent(this@MainActivity, DisplayMedication::class.java)
 //            startActivity(addAlarmScreen)
 //        }
+    }
+
+    private fun sendEmail() {
+        val email = EmailBuilder.startingBlank()
+            .from("Medication Tracker", "no-reply@medicationtracker.com")
+            .to("Recipient", "no-reply@medicationtracker.com")
+            .withSubject("Test")
+            .withPlainText("Testing email")
+            .buildEmail();
+
+        MailerBuilder.withSMTPServer("127.0.0.1", 25, "no-reply@medicationtracker.com", "password").buildMailer().sendMail(email);
     }
 
 }
