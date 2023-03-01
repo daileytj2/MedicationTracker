@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.medicationtracker.app.service.AlarmService
 import kotlinx.android.synthetic.main.activity_addalarm.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,6 +35,8 @@ class AddAlarm : AppCompatActivity() {
         btnDailyAlarm.setOnClickListener{
             setAlarm{ alarmService.setDailyAlarm(it) }
         }
+
+//        mRecyclerView = (RecyclerView) findViewById()
     }
 
     private fun setAlarm(callback: (Long) -> Unit) {
