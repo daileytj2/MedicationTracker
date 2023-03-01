@@ -5,8 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.telephony.SmsManager
-import com.medicationtracker.app.SaveAlarmData
-import com.medicationtracker.app.TJNotifications
 import io.karn.notify.Notify
 import android.text.format.DateFormat
 import com.medicationtracker.app.service.AlarmService
@@ -14,7 +12,6 @@ import com.medicationtracker.app.util.Constants
 import io.karn.notify.internal.utils.Action
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.schedule
 
 class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {

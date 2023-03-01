@@ -6,36 +6,6 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btnWeeklyAlarm"
-        android:layout_width="165dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="529dp"
-        android:text="Weekly"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnDailyAlarm"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnHomeAlarm"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/btnDailyAlarm"
-        android:layout_width="165dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="529dp"
-        android:text="Daily"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnWeeklyAlarm"
-        app:layout_constraintTop_toBottomOf="@+id/btnHomeAlarm"
-        tools:ignore="MissingConstraints" />
-
-    <Button
         android:id="@+id/btnHomeAlarm"
         android:layout_width="349dp"
         android:layout_height="61dp"
@@ -49,6 +19,28 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
+    <Button
+        android:id="@+id/btnWeeklyAlarm"
+        android:layout_width="165dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24dp"
+        android:text="Weekly"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnHomeAlarm"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnDailyAlarm"
+        android:layout_width="165dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Daily"
+        app:layout_constraintStart_toEndOf="@+id/btnWeeklyAlarm"
+        app:layout_constraintTop_toBottomOf="@+id/btnHomeAlarm"
+        tools:ignore="MissingConstraints" />
+        
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rviewAlarmList"
         android:layout_width="409dp"
@@ -61,5 +53,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnDailyAlarm" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
