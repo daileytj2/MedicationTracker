@@ -1,7 +1,9 @@
 package com.medicationtracker.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.BorderStroke
@@ -28,8 +30,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.medicationtracker.app.dto.Medication
 import com.medicationtracker.app.theme.UpdateMedicationDialog
+import kotlinx.android.synthetic.main.activity_addmedication.*
 
-class DisplayMedication : AppCompatActivity() {
+class TakeMedication : AppCompatActivity(){
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     var medications: MutableLiveData<List<Medication>> = MutableLiveData<List<Medication>>()
 
@@ -39,16 +42,16 @@ class DisplayMedication : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_displaymedications)
+        setContentView(R.layout.takemedication)
 
         setContent{
             MainScreen()
-    }
+        }
     }
     @Preview(showBackground = true)
     @Composable
     fun DefaultPreview() {
-            MainScreen()
+        MainScreen()
     }
 
     @Composable
@@ -57,11 +60,11 @@ class DisplayMedication : AppCompatActivity() {
         val openDialog = remember { mutableStateOf(false) }
         var isVisible by remember { mutableStateOf(true) }
 
-            if (isVisible) {
-                MedicationRow()
-            }
-
+        if (isVisible) {
+            MedicationRow()
         }
+
+    }
     @Composable
     fun MedicationRow() {
 
@@ -84,12 +87,12 @@ class DisplayMedication : AppCompatActivity() {
     }
     private fun fetchMedications(medications: SnapshotStateList<Medication>){
 
-            firestore.collection("medications").get()
-                .addOnSuccessListener {
-                    medications.updateList(it.toObjects(Medication::class.java))
-                }.addOnFailureListener{
-                    medications.updateList(listOf())
-                }
+        firestore.collection("medications").get()
+            .addOnSuccessListener {
+                medications.updateList(it.toObjects(Medication::class.java))
+            }.addOnFailureListener{
+                medications.updateList(listOf())
+            }
 
     }
     private fun <T> SnapshotStateList<T>.updateList(medicationList: List<T>) {
@@ -98,7 +101,6 @@ class DisplayMedication : AppCompatActivity() {
     }
     @Composable
     fun MedicationListItem(medication: Medication) {
-        val openDialog = remember { mutableStateOf(false) }
         val isVisible by remember { mutableStateOf(true) }
 
         if (isVisible) {
@@ -120,18 +122,22 @@ class DisplayMedication : AppCompatActivity() {
                             .weight(6f)
                             .padding(start = 2.dp)
                     ) {
-                        Text(text = "Medication Name: ${medication.name}", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "Medication Name: ${medication.name}",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                         Text(text = "Doses Left: ${medication.doseAmount}", fontSize = 16.sp)
-                        Text(text = "Expiration Date: ${medication.expDate}", fontSize = 16.sp)
                     }
                     Column(
                         modifier = Modifier
-                            .weight(1f)
+                            .weight(1.5f)
                     ) {
                         Button(
-                            onClick = { openDialog.value = true },
+                            onClick = { takeMedication(medication) },
                             modifier = Modifier
-                                .padding(2.dp),
+                                .padding(0.dp)
+                                .width(80.dp),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = Color(
                                     12,
@@ -140,84 +146,23 @@ class DisplayMedication : AppCompatActivity() {
                                 )
                             )
                         ) {
-                            Icon(
-                                Icons.Filled.Edit,
-                                contentDescription = "Edit",
-                                modifier = Modifier
-                                    .background(color = Color(12, 121, 230))
-                            )
+                            Text(text = "Take", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                         }
-                        UpdateMedicationDialog(openDialog, medication.id)
-                        Button(
-                            onClick = {
-                                deleteMedication(medication.id)
-                            },
-                            modifier = Modifier
-                                .padding(2.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color(
-                                    12,
-                                    121,
-                                    230
-                                )
-                            )
-                        ) {
-                            Icon(
-                                Icons.Filled.Delete,
-                                contentDescription = "Delete",
-                                modifier = Modifier
-                                    .background(color = Color(12, 121, 230))
-                            )
-                        }
+
                     }
 
                 }
             }
         }
     }
+     fun takeMedication( medication: Medication){
+         val newDoses = medication.doseAmount - 1
+         firestore.collection("medications").document(medication.id).update("doseAmount", newDoses)
+         Toast.makeText(this@TakeMedication, "${medication.name} taken. ${newDoses} doses left.", Toast.LENGTH_SHORT)
+             .show()
+         val intent = Intent(this@TakeMedication, MainActivity::class.java)
+         // start your next activity
+         startActivity(intent)
+     }
 
-    fun checkIfMedicationExists(documentID: String, medication: Medication){
-        Log.d("Document", "Is not null ${documentID}")
-        if(!documentID.equals(""))
-            firestore.collection("medications").document(documentID)
-                .get().addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val document = task.result
-                        if (document.exists()) {
-                            updateMedication(documentID, medication)
-                            Log.d("TAG", "Document already exists. $documentID")
-                        }
-                    } else {
-                        Log.d("An Error Occurred", "Try again")
-                    }
-                }
-        else {
-            saveMedications(medication)
-            Log.d("TAG", "Document does NOT exist. $documentID")
-        }
-    }
-    private fun updateMedication(documentID: String, medication: Medication){
-        medication.id = documentID
-        firestore.collection("medications").document(documentID)
-            .set(medication)
-    }
-
-    fun deleteMedication(documentID: String) {
-        firestore.collection("medications").document(documentID).delete()
-    }
-
-    fun saveMedications(medication: Medication){
-        val document =  if (medication.id == null || medication.id.isEmpty()) {
-            firestore.collection("medications").document()
-        }
-        else {
-            firestore.collection("medications").document(medication.id!!)
-        }
-        medication.id = document.id
-        val handle = document.set(medication)
-        handle.addOnSuccessListener { Log.d("Firebase", "Document Saved") }
-        handle.addOnFailureListener { Log.e("Firebase", "Save Failed")}
-    }
 }
-
-

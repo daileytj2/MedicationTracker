@@ -16,7 +16,13 @@ import java.util.concurrent.TimeUnit
 class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val timeInMillis = intent.getLongExtra(Constants.EXTRA_EXACT_ALARM_TIME, 0L)
-
+        val smsManager: SmsManager = SmsManager.getDefault()
+        var txtMessage = "The patient has not taken their medication."
+        //destinationAddress needs to be a phone number that the user inputs
+        // smsManager.sendTextMessage("5138882059", null, txtMessage, null, null)
+        // Below is code to send a text after ten minutes//
+        // Timer().schedule(600000) {//
+        // smsManager.sendTextMessage("5138882059", null, message, null, null)//              }
 
         when (intent.action) {
             Constants.ACTION_SET_EXACT_ALARM -> {
@@ -30,8 +36,8 @@ class AlarmReceiver: BroadcastReceiver() {
                 AlarmService(context).setWeeklyAlarm(cal.timeInMillis)
                 buildNotification(context, "Set Weekly Time", convertDate(timeInMillis))
 
-                val smsManager: SmsManager = SmsManager.getDefault()
-                var txtMessage = "The patient has not taken their medication."
+                //val smsManager: SmsManager = SmsManager.getDefault()
+                //var txtMessage = "The patient has not taken their medication."
 
                 //destinationAddress needs to be a phone number that the user inputs
                 smsManager.sendTextMessage("5138882059", null, txtMessage, null, null)
