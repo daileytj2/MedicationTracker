@@ -13,6 +13,9 @@ class AlarmService(private val context: Context) {
     private val alarmManager: AlarmManager? =
         context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
 
+    val alarmList = ArrayList<Int>()
+
+
     fun setExactAlarm(timeInMillis: Long){
         setAlarm(
             timeInMillis,
@@ -36,6 +39,7 @@ class AlarmService(private val context: Context) {
                 }
             )
         )
+        addAlarmList()
     }
 
     //Every day
@@ -49,6 +53,11 @@ class AlarmService(private val context: Context) {
                 }
             )
         )
+        addAlarmList()
+    }
+
+    fun addAlarmList(){
+        alarmList.add(RandomIntUtil.getRandomInt())
     }
 
     private fun setAlarm(timeInMillis: Long, pendingIntent: PendingIntent){
@@ -81,4 +90,5 @@ class AlarmService(private val context: Context) {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
+
 }

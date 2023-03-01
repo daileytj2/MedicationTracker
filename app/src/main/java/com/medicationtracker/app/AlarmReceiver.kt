@@ -24,6 +24,17 @@ class AlarmReceiver: BroadcastReceiver() {
         // Timer().schedule(600000) {//
         // smsManager.sendTextMessage("5138882059", null, message, null, null)//              }
 
+        val smsManager: SmsManager = SmsManager.getDefault()
+        var txtMessage = "The patient has not taken their medication."
+
+        //destinationAddress needs to be a phone number that the user inputs
+                smsManager.sendTextMessage("5138882059", null, txtMessage, null, null)
+
+        //Below is code to send a text after ten minutes
+//              Timer().schedule(600000) {
+//                  smsManager.sendTextMessage("5138882059", null, message, null, null)
+//              }
+
         when (intent.action) {
             Constants.ACTION_SET_EXACT_ALARM -> {
                 buildNotification(context, "Set Exact Time", convertDate(timeInMillis))
@@ -36,16 +47,6 @@ class AlarmReceiver: BroadcastReceiver() {
                 AlarmService(context).setWeeklyAlarm(cal.timeInMillis)
                 buildNotification(context, "Set Weekly Time", convertDate(timeInMillis))
 
-                //val smsManager: SmsManager = SmsManager.getDefault()
-                //var txtMessage = "The patient has not taken their medication."
-
-                //destinationAddress needs to be a phone number that the user inputs
-                smsManager.sendTextMessage("5138882059", null, txtMessage, null, null)
-
-                //Below is code to send a text after ten minutes
-//              Timer().schedule(600000) {
-//                  smsManager.sendTextMessage("5138882059", null, message, null, null)
-//              }
             }
 
             Constants.ACTION_SET_REPETITIVE_DAILY_ALARM -> {
@@ -54,17 +55,21 @@ class AlarmReceiver: BroadcastReceiver() {
                 }
                 AlarmService(context).setDailyAlarm(cal.timeInMillis)
                 buildNotification(context, "Set Daily Time", convertDate(timeInMillis))
-                val smsManager: SmsManager = SmsManager.getDefault()
-                var txtMessage = "The patient has not taken their medication."
+//                val smsManager: SmsManager = SmsManager.getDefault()
+//                var txtMessage = "The patient has not taken their medication."
 
                 //destinationAddress needs to be a phone number that the user inputs
-                smsManager.sendTextMessage("5138882059", null, txtMessage, null, null)
+//                smsManager.sendTextMessage("5138882059", null, txtMessage, null, null)
 
                 //Below is code to send a text after ten minutes
 //              Timer().schedule(600000) {
 //                  smsManager.sendTextMessage("5138882059", null, message, null, null)
+
 //              }
             }
+
+
+
         }
     }
 
@@ -98,7 +103,7 @@ class AlarmReceiver: BroadcastReceiver() {
                     R.drawable.ic_bell,
                     // The text corresponding to the action -- this is what shows below the
                     // notification.
-                    "Clear",
+                    "Dismiss",
                     // Swap this PendingIntent for whatever Intent is to be processed when the action
                     // is clicked.
                     PendingIntent.getService(context,
