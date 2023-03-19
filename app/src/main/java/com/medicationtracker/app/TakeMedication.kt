@@ -161,25 +161,36 @@ class TakeMedication : AppCompatActivity(){
         }
     }
      fun takeMedication( medication: Medication){
+         if (medication.doseAmount > 0) {
          val newDoses = medication.doseAmount - 1
          firestore.collection("medications").document(medication.id).update("doseAmount", newDoses)
          Toast.makeText(this@TakeMedication, "${medication.name} taken. ${newDoses} doses left.", Toast.LENGTH_SHORT)
              .show()
          if (newDoses < 6){
              val dialogBuilder = AlertDialog.Builder(this)
-
-             // set message of alert dialog
-             with(dialogBuilder)
-             {
-                 setTitle("${medication.name} Running Low")
-                 setMessage("${newDoses} left")
-                 setNegativeButton("Dismiss", null)
-                 show()
+             dialogBuilder.setTitle("${medication.name} Running Low")
+             dialogBuilder.setMessage("${newDoses} left")
+             dialogBuilder.setNegativeButton("Dismiss"){dialogInterface, which ->
+                 val intent = Intent(this, MainActivity::class.java)
+                 startActivity(intent)
              }
+             dialogBuilder.show()
+         } else {
+             val intent = Intent(this, MainActivity::class.java)
+             startActivity(intent)
          }
-         val intent = Intent(this@TakeMedication, MainActivity::class.java)
-         // start your next activity
-         startActivity(intent)
+         } else {
+             val dialogBuilder = AlertDialog.Builder(this)
+             dialogBuilder.setTitle("${medication.name} Out of Doses!")
+             dialogBuilder.setMessage("You cannot take this medication because there are no more doses left.")
+             dialogBuilder.setNegativeButton("Dismiss"){dialogInterface, which ->
+                 val intent = Intent(this, MainActivity::class.java)
+                 startActivity(intent)
+             }
+             dialogBuilder.show()
+
+         }
+
      }
 
 }
