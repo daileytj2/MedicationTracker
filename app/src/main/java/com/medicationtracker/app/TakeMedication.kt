@@ -4,6 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+//import android.support.v7.app.AppCompatActivity
+//import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_main.*
+import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.BorderStroke
@@ -160,6 +165,18 @@ class TakeMedication : AppCompatActivity(){
          firestore.collection("medications").document(medication.id).update("doseAmount", newDoses)
          Toast.makeText(this@TakeMedication, "${medication.name} taken. ${newDoses} doses left.", Toast.LENGTH_SHORT)
              .show()
+         if (newDoses < 6){
+             val dialogBuilder = AlertDialog.Builder(this)
+
+             // set message of alert dialog
+             with(dialogBuilder)
+             {
+                 setTitle("${medication.name} Running Low")
+                 setMessage("${newDoses} left")
+                 setNegativeButton("Dismiss", null)
+                 show()
+             }
+         }
          val intent = Intent(this@TakeMedication, MainActivity::class.java)
          // start your next activity
          startActivity(intent)

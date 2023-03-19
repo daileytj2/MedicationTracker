@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit
 class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val timeInMillis = intent.getLongExtra(Constants.EXTRA_EXACT_ALARM_TIME, 0L)
-        val smsManager: SmsManager = SmsManager.getDefault()
-        var txtMessage = "The patient has not taken their medication."
+//        val smsManager: SmsManager = SmsManager.getDefault()
+//        var txtMessage = "The patient has not taken their medication."
         //destinationAddress needs to be a phone number that the user inputs
         // smsManager.sendTextMessage("5138882059", null, txtMessage, null, null)
         // Below is code to send a text after ten minutes//
