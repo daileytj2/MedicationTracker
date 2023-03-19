@@ -9,12 +9,6 @@
         android:id="@+id/imgViewAlarm"
         android:layout_width="57dp"
         android:layout_height="73dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="338dp"
-        android:layout_marginBottom="642dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_app_icon" />
@@ -23,36 +17,31 @@
         android:id="@+id/txtAlarmList"
         android:layout_width="222dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
         android:text="TextView"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/imgViewAlarm"
-        app:layout_constraintTop_toEndOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="17dp" />
+        app:layout_constraintTop_toTopOf="parent"
+         />
 
     <Button
         android:id="@+id/btnDeleteAlarm"
         android:layout_width="106dp"
         android:layout_height="68dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="Delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toEndOf="@id/txtAlarmList"
-        app:layout_constraintTop_toEndOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="17dp" />
+        app:layout_constraintTop_toTopOf="parent"
+         />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_margin="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="54dp"
         android:background="@color/underline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toEndOf="@id/imgViewAlarm"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="89dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgViewAlarm"
+         />
 </androidx.constraintlayout.widget.ConstraintLayout>
