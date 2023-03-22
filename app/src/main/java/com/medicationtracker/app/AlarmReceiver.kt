@@ -14,8 +14,7 @@ import java.util.concurrent.TimeUnit
 class AlarmReceiver: BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-
-
+        
         var medname = intent.getStringExtra("message").toString()
 
 
