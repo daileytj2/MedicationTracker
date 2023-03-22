@@ -21,7 +21,7 @@
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@id/imgViewAlarm"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <Button
@@ -32,7 +32,7 @@
         android:layout_marginTop="16dp"
         android:text="Delete"
         app:layout_constraintStart_toEndOf="@id/txtAlarmList"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <View
@@ -41,7 +41,7 @@
         android:layout_margin="8dp"
         android:layout_marginTop="54dp"
 
-        android:background="@color/underline"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgViewAlarm"
          />
