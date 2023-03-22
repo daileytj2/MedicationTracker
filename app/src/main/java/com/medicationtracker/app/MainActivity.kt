@@ -39,7 +39,9 @@ class MainActivity : AppCompatActivity() {
             val addHistoryScreen = Intent(this, DisplayMedication::class.java)
             startActivity(addHistoryScreen)
         }
-
+        btnTakeMed.setOnClickListener(){
+            val takeMedication = Intent(this, TakeMedication::class.java)
+            startActivity(takeMedication)}
         //btnAlarmUI.setOnClickListener {
         //    val addAlarmScreen = Intent(this@MainActivity, DisplayMedication::class.java)
         //    startActivity(addAlarmScreen)
