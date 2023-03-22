@@ -5,24 +5,22 @@ import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.medicationtracker.app.service.AlarmService
 import kotlinx.android.synthetic.main.activity_addmedication.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.login.*
 import kotlinx.android.synthetic.main.mainidea.*
-
-
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.mainidea)
-//        alarmService =AlarmService(this)
+        //alarmService = AlarmService(this)
 
         tomedication.setOnClickListener(){
             val addMedScreen = Intent(this, AddMedication::class.java)
@@ -30,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(addMedScreen)
         }
         toalarms.setOnClickListener(){
-            val addAlarmScreen = Intent(this, AddAlarm::class.java)
+            val addAlarmScreen = Intent(this, AlarmPage::class.java)
             startActivity(addAlarmScreen)
         }
         tocontacts.setOnClickListener(){
@@ -43,16 +41,12 @@ class MainActivity : AppCompatActivity() {
         }
         btnTakeMed.setOnClickListener(){
             val takeMedication = Intent(this, TakeMedication::class.java)
-            startActivity(takeMedication)
-        }
-
-
-//        btnAlarmUI.setOnClickListener {
-//            val addAlarmScreen = Intent(this@MainActivity, DisplayMedication::class.java)
-//            startActivity(addAlarmScreen)
-//        }
+            startActivity(takeMedication)}
+        //btnAlarmUI.setOnClickListener {
+        //    val addAlarmScreen = Intent(this@MainActivity, DisplayMedication::class.java)
+        //    startActivity(addAlarmScreen)
+        //}
     }
-
 
 }
 
