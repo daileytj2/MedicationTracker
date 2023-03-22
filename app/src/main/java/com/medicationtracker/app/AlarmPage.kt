@@ -22,17 +22,17 @@ class AlarmPage : AppCompatActivity(){
         alarmService =AlarmService(this)
 
         btnWeeklyAlarm2.setOnClickListener{
-            setAlarm{ alarmService.setWeeklyAlarm(it) }
+            setAlarm{ alarmService.setWeeklyAlarm(it, "place holder") }
         }
 
         btnDailyAlarm2.setOnClickListener{
-            setAlarm{ alarmService.setDailyAlarm(it) }
+            setAlarm{ alarmService.setDailyAlarm(it, "alarm page") }
         }
     }
 
 
 
-    private fun setAlarm(callback: (Long) -> Unit) {
+    fun setAlarm(callback: (Long) -> Unit) {
         Calendar.getInstance().apply {
             this.set(Calendar.SECOND,0)
             this.set(Calendar.MILLISECOND,0)
@@ -67,7 +67,8 @@ class AlarmPage : AppCompatActivity(){
 
     fun setTime(Hours:Int,Minute:Int){
 
-//        txtShowTime.text= "$Hours:$Minute"
+
+        //txtShowTime.text= "$Hours:$Minute"
 
         val saveAlarmData=SaveAlarmData(applicationContext)
         saveAlarmData.SaveData(Hours, Minute)

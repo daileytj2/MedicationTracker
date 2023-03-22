@@ -1,5 +1,9 @@
 package com.medicationtracker.app
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
@@ -22,14 +26,21 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.medicationtracker.app.dto.Medication
+import com.medicationtracker.app.service.AlarmService
 import com.medicationtracker.app.theme.UpdateMedicationDialog
+import java.util.*
+
 
 class DisplayMedication : AppCompatActivity() {
+    //context for alarm
+    var context:Context?=null
+    var mednames = arrayListOf<String>()
+    lateinit var  alarmService: AlarmService
+    
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     var medications: MutableLiveData<List<Medication>> = MutableLiveData<List<Medication>>()
 
@@ -40,11 +51,13 @@ class DisplayMedication : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_displaymedications)
+        alarmService =AlarmService(this)
 
         setContent{
             MainScreen()
     }
     }
+
     @Preview(showBackground = true)
     @Composable
     fun DefaultPreview() {
@@ -120,14 +133,56 @@ class DisplayMedication : AppCompatActivity() {
                             .weight(6f)
                             .padding(start = 2.dp)
                     ) {
-                        Text(text = "Medication Name: ${medication.name}", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                        Text(text = "Doses Left: ${medication.doseAmount}", fontSize = 16.sp)
-                        Text(text = "Expiration Date: ${medication.expDate}", fontSize = 16.sp)
+                        Text(text = "Medication Name: ${medication.name}", fontWeight = FontWeight.Bold)
+                        Text(text = "Doses Left: ${medication.doseAmount}")
+                        Text(text = "Expiration Date: ${medication.expDate}")
+                        Button(
+                            onClick = {
+                                DailyAlarm(medication.name)
+
+                            },
+                            modifier = Modifier
+                                .padding(2.dp),
+
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color(
+                                    12,
+                                    121,
+                                    230
+                                )
+                            )
+                        ) {
+                            Text(
+                                text="Daily Alarm",
+                            )
+                        }
+                        Button(
+                            onClick = {
+                                WeeklyAlarm(medication.name)
+
+                            },
+                            modifier = Modifier
+                                .padding(2.dp),
+
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color(
+                                    12,
+                                    121,
+                                    230
+                                )
+                            )
+                        ) {
+                            Text(
+                                text="Weekly Alarm",
+                            )
+                        }
+
                     }
                     Column(
                         modifier = Modifier
                             .weight(1f)
                     ) {
+
                         Button(
                             onClick = { openDialog.value = true },
                             modifier = Modifier
@@ -169,6 +224,16 @@ class DisplayMedication : AppCompatActivity() {
                                     .background(color = Color(12, 121, 230))
                             )
                         }
+
+
+
+
+                        //Alarms
+
+
+
+
+
                     }
 
                 }
@@ -218,6 +283,47 @@ class DisplayMedication : AppCompatActivity() {
         handle.addOnSuccessListener { Log.d("Firebase", "Document Saved") }
         handle.addOnFailureListener { Log.e("Firebase", "Save Failed")}
     }
+
+    fun DailyAlarm(name:String){
+        setAlarm{ alarmService.setDailyAlarm(it,name) }
+    }
+    fun WeeklyAlarm(name:String){
+        setAlarm{ alarmService.setDailyAlarm(it,name) }
+    }
+
+    fun setAlarm( callback: (Long) -> Unit) {
+        Calendar.getInstance().apply {
+            this.set(Calendar.SECOND,0)
+            this.set(Calendar.MILLISECOND,0)
+
+            DatePickerDialog(this@DisplayMedication,
+                0,
+                {_, year, month, day ->
+                    this.set(Calendar.YEAR, year)
+                    this.set(Calendar.MONTH, month)
+                    this.set(Calendar.DAY_OF_MONTH, day)
+                    TimePickerDialog(
+                        this@DisplayMedication,
+                        0,
+                        {_, hour, min ->
+                            this.set(Calendar.HOUR_OF_DAY, hour)
+                            this.set(Calendar.MINUTE, min)
+                            callback(this.timeInMillis)
+                        },
+                        this.get(Calendar.HOUR_OF_DAY),
+                        this.get(Calendar.MINUTE),
+                        false
+                    ).show()
+                },
+
+
+                this.get(Calendar.YEAR),
+                this.get(Calendar.MONTH),
+                this.get(Calendar.DAY_OF_MONTH),
+
+
+            ).show()
+        }
+    }
+
 }
-
-

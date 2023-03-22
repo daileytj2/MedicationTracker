@@ -160,6 +160,7 @@ class TakeMedication : AppCompatActivity(){
             }
         }
     }
+
      fun takeMedication( medication: Medication){
          if (medication.doseAmount > 0) {
          val newDoses = medication.doseAmount - 1
@@ -192,5 +193,6 @@ class TakeMedication : AppCompatActivity(){
          }
 
      }
+
 
 }

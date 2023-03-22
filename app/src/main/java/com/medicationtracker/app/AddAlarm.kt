@@ -2,16 +2,13 @@ package com.medicationtracker.app
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import com.medicationtracker.app.service.AlarmService
 import kotlinx.android.synthetic.main.activity_addalarm.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.mainidea.*
 import java.util.*
 
 class AddAlarm : AppCompatActivity() {
@@ -22,21 +19,13 @@ class AddAlarm : AppCompatActivity() {
         setContentView(R.layout.activity_addalarm)
         alarmService =AlarmService(this)
 
-        btnHomeAlarm.setOnClickListener(){
-            val addAlarmHome = Intent(this, MainActivity::class.java)
-            startActivity(addAlarmHome)
-        }
-
         btnWeeklyAlarm.setOnClickListener{
-            setAlarm{ alarmService.setWeeklyAlarm(it) }
-
+            setAlarm{ alarmService.setWeeklyAlarm(it, "place holder") }
         }
 
         btnDailyAlarm.setOnClickListener{
-            setAlarm{ alarmService.setDailyAlarm(it) }
+            setAlarm{ alarmService.setDailyAlarm(it, "place holder") }
         }
-
-//        mRecyclerView = (RecyclerView) findViewById()
     }
 
     private fun setAlarm(callback: (Long) -> Unit) {
