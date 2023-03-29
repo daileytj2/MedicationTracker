@@ -5,6 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+
+        android:id="@+id/btnDailyAlarm3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="424dp"
+        android:text="Set Daily Alarm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+
+        android:id="@+id/btnWeeklyAlarm3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="424dp"
+        android:text="Set Weekly Alarm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -126,7 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="276dp"
-        android:layout_marginTop="424dp"
+        android:layout_marginTop="520dp"
         android:text="Cancel"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="164dp"
-        android:layout_marginTop="424dp"
+        android:layout_marginTop="520dp"
         android:text="Add"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
