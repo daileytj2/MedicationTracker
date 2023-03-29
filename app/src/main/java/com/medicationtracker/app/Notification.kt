@@ -12,6 +12,8 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import io.karn.notify.Notify
+
 //import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 
 class Notification : AppCompatActivity() {
@@ -26,7 +28,7 @@ class Notification : AppCompatActivity() {
 
         val button = findViewById<Button>(R.id.NotificationTest)
         button.setOnClickListener(){
-            sendNotification()
+            //sendNotification()
         }
     }
     private fun createNotificationChannel() {
@@ -42,23 +44,25 @@ class Notification : AppCompatActivity() {
         }
 
     }
-    private fun sendNotification(){
+     fun sendNotification(context: Context, title: String){
         val intent = Intent(this,Notification::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this,0,intent,0)
-        val bimap = BitmapFactory.decodeResource(application.resources, R.drawable.stupidchilibot)
-        val bimaplargeicon = BitmapFactory.decodeResource(application.resources, R.drawable.praisethesun)
+
 
 
         val builder = NotificationCompat.Builder(this@Notification, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("Take Your Meds")
-            .setContentTitle("It is time to take your Ibuprofen")
-            .setLargeIcon(bimaplargeicon)
-            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bimap))
-            .setContentIntent(pendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+         Notify
+             .with(context)
+             .content {
+
+                 this.text = "It's time to take your " + title
+             }
+             //.setContentIntent(pendingIntent)
+
+             .show()
 
         with(NotificationManagerCompat.from(this )) {
             notify(notificationID, builder.build())
