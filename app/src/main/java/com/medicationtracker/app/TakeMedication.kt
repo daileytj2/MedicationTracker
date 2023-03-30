@@ -36,10 +36,13 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.medicationtracker.app.dto.Medication
 import com.medicationtracker.app.theme.UpdateMedicationDialog
 import kotlinx.android.synthetic.main.activity_addmedication.*
+import java.util.*
 
 class TakeMedication : AppCompatActivity(){
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     var medications: MutableLiveData<List<Medication>> = MutableLiveData<List<Medication>>()
+
+    var classAlarmReceiver = AlarmReceiver()
 
     init {
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
@@ -162,6 +165,7 @@ class TakeMedication : AppCompatActivity(){
     }
 
      fun takeMedication( medication: Medication){
+         classAlarmReceiver.timer.cancel()
          if (medication.doseAmount > 0) {
          val newDoses = medication.doseAmount - 1
          firestore.collection("medications").document(medication.id).update("doseAmount", newDoses)
