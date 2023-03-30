@@ -61,7 +61,7 @@ class AlarmReceiver: BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
-
+        Log.d("intent", "${intent.action}")
         var medname = intent.getStringExtra("message").toString()
 
         //createNotificationChannel(medname)
