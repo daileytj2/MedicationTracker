@@ -58,21 +58,21 @@ class AddMedication : AppCompatActivity() {
         alarmService =AlarmService(this)
         btnWeeklyAlarm3.setOnClickListener {
             val medicationName = etMedicationName.text.toString()
-            if (etMedicationName != null){
+            if (etMedicationName.text == null){
                 WeeklyAlarm(medicationName)
             }
             else{
-                var toast = Toast.makeText(applicationContext, "ERROR: Please fill out the form", Toast.LENGTH_SHORT)
+                val toast = Toast.makeText(applicationContext, "ERROR: Please fill out the form", Toast.LENGTH_SHORT)
                 toast.show()
             }
         }
         btnDailyAlarm3.setOnClickListener {
             val medicationName = etMedicationName.text.toString()
-            if (etMedicationName != null){
+            if (etMedicationName.text == null){
                 DailyAlarm(medicationName)
             }
             else{
-                var toast = Toast.makeText(applicationContext, "ERROR: Please fill out the form", Toast.LENGTH_SHORT)
+                val toast = Toast.makeText(applicationContext, "ERROR: Please fill out the form", Toast.LENGTH_SHORT)
                 toast.show()
             }
         }
