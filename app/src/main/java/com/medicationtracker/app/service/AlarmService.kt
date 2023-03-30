@@ -9,6 +9,7 @@ import android.util.Log
 import com.medicationtracker.app.AlarmReceiver
 import com.medicationtracker.app.DisplayMedication
 import com.medicationtracker.app.MainActivity
+import com.medicationtracker.app.TakeMedicationFromNotification
 import com.medicationtracker.app.util.Constants
 import com.medicationtracker.app.util.RandomIntUtil
 
@@ -47,7 +48,7 @@ class AlarmService(private val context: Context) {
 
     //Every day
     fun setDailyAlarm(timeInMillis: Long, medname: String){
-
+        val intent=Intent(context, TakeMedicationFromNotification::class.java)
         setAlarm(
             timeInMillis,
             getPendingIntent(
@@ -60,6 +61,8 @@ class AlarmService(private val context: Context) {
 
 
         )
+        intent.action=null
+        intent.putExtra("message", medname)
     }
 
     private fun setAlarm(timeInMillis: Long, pendingIntent: PendingIntent){

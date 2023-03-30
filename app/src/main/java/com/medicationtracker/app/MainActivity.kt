@@ -42,5 +42,7 @@ class MainActivity : AppCompatActivity() {
         //    val addAlarmScreen = Intent(this@MainActivity, DisplayMedication::class.java)
         //    startActivity(addAlarmScreen)
         //}
+
+
     }
 }
